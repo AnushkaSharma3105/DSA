@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+class Solution{
+    public int HighTwo(int[] nums){
+        int n = nums.length;
+        int max = Integer.MIN_VALUE;
+        int sec_max = 0;
+        for(int i = 0; i < n; i++){
+            if(nums[i] > max){
+                sec_max = max;
+                max = nums[i];
+            }
+            else if(nums[i] > sec_max && nums[i] < max){
+                sec_max = nums[i];
+            }
+        }
+        return sec_max;
+        
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the size of array: ");
+        int size = sc.nextInt();
+        int[] nums = new int[size];
+        System.out.println("Enter "+size+" elements: " );
+        for(int i = 0; i < size; i++){
+            nums[i] = sc.nextInt();
+        }
+        Solution obj = new Solution();
+        System.out.println("Second highest element is: "+obj.HighTwo(nums));
+    }
+    
+}
