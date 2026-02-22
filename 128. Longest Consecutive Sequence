@@ -40,7 +40,7 @@ class Solution {
             map.put(num, true);
         }
 
-        for(int num : nums){
+        for(int num : map.keySet()){
             if(!map.containsKey(num-1)){
                 int curr = num;
                 int len = 1;
