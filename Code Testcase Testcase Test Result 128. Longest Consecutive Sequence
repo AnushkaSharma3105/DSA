@@ -1,0 +1,56 @@
+class Solution {
+
+    public int longestConsecutive(int[] nums) {
+
+        // Brute force approach
+    
+        // int n = nums.length;
+        // if(n == 0) return 0;
+        // int longest = 1;
+        // for(int i = 0; i < n; i++){
+        //     int current = nums[i];
+        //     int length = 1;
+        //     boolean found = true;
+        //     while(found){
+        //         found = false;
+        //         for(int j = 0; j < n; j++){
+        //             if(nums[j] == current + 1){
+        //                 current = current + 1;
+        //                 length++;
+        //                 found = true;
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     longest = Math.max(longest, length);
+        // }
+        // return longest;
+
+
+        // Optimized approach
+
+        int n = nums.length;
+        int longest = 0;
+        if(n == 0){
+            return 0;
+        }
+
+        HashMap<Integer, Boolean> map = new HashMap<>();
+        for(int num : nums){
+            map.put(num, true);
+        }
+
+        for(int num : nums){
+            if(!map.containsKey(num-1)){
+                int curr = num;
+                int len = 1;
+                while(map.containsKey(curr+1)){
+                    curr++;
+                    len++;
+                }
+                longest = Math.max(longest, len);
+            }
+        }
+        return longest;
+    }
+}
