@@ -1,0 +1,22 @@
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int max = 0;
+        for (int pile : piles) {
+            max = Math.max(max, pile);
+        }
+
+        for (int i = 1; i <= max; i++) {
+            long time = 0;
+
+            for (int k = 0; k < piles.length; k++) {
+                time += (piles[k] + i - 1) / i;
+            }
+
+            if (time <= h) {
+                return i;
+            }
+        }
+
+        return max;
+    }
+}
