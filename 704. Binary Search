@@ -1,0 +1,21 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        int n = nums.length - 1;
+        return find(0, n, target, nums);
+    }
+    // using recursion (no manual while loop needed)
+    private static int find(int low, int high, int target, int[] nums){
+        // base case
+        if(low > high){
+            return -1;
+        }
+        int mid = low + (high - low)/2;
+        if(nums[mid] == target) return mid;
+        else if(nums[mid] > target){
+            return find(low, mid-1, target, nums);
+        }
+        else{
+            return find(mid+1, high, target, nums);
+        }
+    } 
+}
