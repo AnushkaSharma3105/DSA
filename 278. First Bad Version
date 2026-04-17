@@ -18,6 +18,16 @@ public class Solution extends VersionControl {
         }
 
         return ans;
-        
+
+
+        // Brute Force (TLE)
+
+        // for(int i = 1; i <= n; i++){
+        //     if(isBadVersion(i) == true){
+        //         return i;
+        //     }
+        // }
+
+        // return -1;
     }
 }
