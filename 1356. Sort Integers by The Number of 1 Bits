@@ -1,0 +1,32 @@
+class Solution {
+    public int[] sortByBits(int[] arr) {
+        int n = arr.length;
+        // to store binary numbers (use class Integer not primitive datatype int)
+        Integer[] nums = new Integer[n];
+
+        for(int i = 0; i < n; i++){
+            nums[i] = arr[i];
+        }
+
+        // Sort the array but using my method (sorting on basis of bitcounts not on the basis of decimal value)
+        // sort method compares 2 values for sorting
+        Arrays.sort(nums, (a,b) -> {
+            int countA = Integer.bitCount(a);
+            int countB = Integer.bitCount(b);
+
+            if(countA == countB){
+                return a - b;
+                // if positive then b comes before a, if negative then a comes before b (sort decides it by itself)
+            }
+
+            return countA - countB;
+        });
+
+        // convert Integer to int because return type is int
+        for(int i = 0; i < n; i++){
+            arr[i] = nums[i];
+        }
+
+        return arr;
+    }
+}
