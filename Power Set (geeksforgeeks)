@@ -1,0 +1,28 @@
+// User function Template for Java
+
+class Solution {
+    public List<String> AllPossibleStrings(String s) {
+        // Code here
+        List<String> res = new ArrayList<>();
+        backtrack(0, s, "", res);
+        
+        Collections.sort(res); // lexicographic order
+        return res;
+    }
+    
+    void backtrack(int start, String s, String curr, List<String> res){
+        
+        if(start == s.length()){
+            if(!curr.isEmpty()){
+                res.add(curr);
+            }
+            return;
+        }
+        
+        // Take
+        backtrack(start + 1, s, curr + s.charAt(start), res);
+        
+        // Skip
+        backtrack(start + 1, s, curr, res);
+    }
+}
