@@ -17,6 +17,7 @@ public class Solution {
             headA = headA.next;
         }
         while(headB != null){
+            // it checks if headA contains the same node as headB, not it's value, but the same node with same memory
             if(set.contains(headB)){
                 return headB;
             }
