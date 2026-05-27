@@ -1,0 +1,15 @@
+class Solution {
+    public int singleNumber(int[] nums) {
+
+        // a ^ a = 0, a ^ 0 = a, prev same no. cancels new same no. (-), else (+)
+        
+        int result = 0;
+
+        for(int num : nums) {
+            result ^= num;
+        }
+
+        return result;
+
+    }
+}
