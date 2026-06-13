@@ -1,0 +1,89 @@
+class LRUCache {
+
+    class Node{
+        int key;
+        int value;
+
+        Node prev;
+        Node next;
+
+        Node(int key, int value){
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    private int capacity;
+    private HashMap<Integer, Node> map;
+
+    private Node head;
+    private Node tail;
+
+    public LRUCache(int capacity) {
+
+        this.capacity = capacity;
+        map = new HashMap<>();
+        head = new Node(0,0);
+        tail = new Node(0,0);
+
+        head.next = tail;
+        tail.prev = head;
+        
+    }
+
+    private void remove(Node node){
+        // it can be called only inside this class, can't be accessed by the main class
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+    
+    private void insert(Node node){
+        // inserted node would be MRU(Most recently used), thus insertion would be done in the beginning of the doubly linkedlist
+        node.next = head.next;
+        node.prev = head;
+        head.next.prev = node;
+        head.next = node;
+    }
+
+    public int get(int key) {
+        if(!map.containsKey(key)) return -1;
+        // store key's value in a variable
+        Node node = map.get(key);
+        // now it has become MRU, remove it from it's prev position and add in the front
+        remove(node);
+        insert(node);
+        return node.value;
+    }
+    
+    public void put(int key, int value) {
+
+        // check if it already exist, (remove it)
+        if(map.containsKey(key)){
+            Node old = map.get(key);
+            remove(old);
+        }
+
+        // then add it 
+        Node newNode = new Node(key, value);
+        insert(newNode);
+        map.put(key, newNode);
+        
+        // check if capacity is full
+        if(map.size() > capacity){
+            // remove LRU(least recently used) so that the new node can be added
+            Node lru = tail.prev;
+            // remove it from the linkedlist
+            remove(lru);
+            // remove it from the map too, because we're comparing map size with the capacity so it should be updated
+            map.remove(lru.key);
+
+        }
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
